@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Etablissements{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row" style="margin-top:5%">
+            <h1>Liste des établissements</h1>
+            {% for Etablissement in Etablissements %}
+                <div class="col">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h2 class="text-center mb-5"><strong>{{ Etablissement.nom | upper}}</strong></h2>
+                            <div class="row text-center">
+                                {% for categorie in Etablissement.categorie %}
+                                    <p class="col p-2" style="font-style: italic">{{ categorie.nom }}</p>
+                                {% endfor %}
+                                <p class="col">{{ Etablissement.ville.nom }}<br>{{ Etablissement.ville.codePostal }}</p>
+
+                            </div>
+                            <div>
+                                <p>{{ Etablissement.description[:50] }}.</p>
+                                <a class="btn btn-dark col" style="margin-left:80%"
+                                   href="{{ path("app_etablissement_slug", {'slug': Etablissement.slug}) }}">Plus<i class="bi bi-plus-square"></i>
+                                </a>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="navigation d-flex justify-content-center" style="margin-top:5%">
+        {{ knp_pagination_render(Etablissements) }}
+    </div>
+{% endblock %}
