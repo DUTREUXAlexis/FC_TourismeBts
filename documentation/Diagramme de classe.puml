@@ -1,6 +1,24 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+
+class Catégorie {
+
+-nom : string not null
+-dateCreation : datetime not null
+
+}
+
+class Ville {
+
+-nom : string not null
+-codePostal : string not null
+-nomDepartement : string not null
+-numDepartement : int not null
+-nomRegion : string not null
+
+}
+
 class Etablissement {
 
 -nom : string not null
@@ -19,23 +37,10 @@ class Etablissement {
 
 }
 
-class Ville {
 
--nom : string not null
--codePostal : string not null
--nomDepartement : string not null
--numDepartement : int not null
--nomRegion : string not null
 
-}
 
-class Catégorie {
 
--nom : string not null
--dateCreation : datetime not null
-
-}
-
-Etablissement "0..* " -- "1..*  "Catégorie
-Etablissement "0..* "-- "1..*"Ville
+Etablissement "1..* " -- "1..* " Catégorie
+Etablissement "1..1 "-- "0..*"Ville
 @enduml
