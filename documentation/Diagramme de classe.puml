@@ -9,6 +9,20 @@ class Catégorie {
 
 }
 
+class Utilisateur
+{
+-prenom : string not null
+-nom : string not null
+-pseudo : string null
+-adresseMail : string not null
+-motDePasse : string not null
+-createdAt : date not null
+-modifiedAt :  date null
+-roles :  string not null
+-Actif :  bool not null
+}
+
+
 class Ville {
 
 -nom : string not null

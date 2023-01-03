@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+    {% block stylesheets %}
+        <link href="https://bootswatch.com/_vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    {% endblock %}
+{% block body %}
+
+    <h1>Inscription</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.nom ,{'label': 'Nom','attr':{'placeholder':'Saisir votre nom ...'}} ) }}
+    {{ form_row(form.prenom,{'label': 'Prenom ','attr':{'placeholder':'Saisir votre prenom ...'}} ) }}
+    {{ form_row(form.email,{'attr':{'placeholder':'Saisir votre email ...'}})}}
+    {{ form_row(form.password,{'attr':{'placeholder':'Saisir votre mot de passe ...'}})}}
+    {{ form_row(form.pseudo,{'attr':{'placeholder':'Saisir votre pseudo ...'}})}}
+
+
+    <button type="submit" class="btn btn-success">Inscription</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -48,7 +48,7 @@ class Etablissement
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $modfiedAt;
+    private ?\DateTimeImmutable $modfiedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'etablissements')]
     private Collection $categorie;
