@@ -23,7 +23,7 @@ class UtilisateurFixtures extends Fixture
                 ->setPseudo($faker->name)
                 ->setCreatedAt(New \DateTime())
                 ->setEmail($faker->email)
-                ->setPassword('password')
+                ->setPassword(password_hash('password',PASSWORD_DEFAULT))
                 ->setroles(['ROLE_USER']);
             $manager->persist($utilisateur);
         }
