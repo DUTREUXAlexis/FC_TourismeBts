@@ -13,12 +13,15 @@
 
 
             <div class="row d-flex" style="margin-right: 3%">
-                <a class="col text-light nav-link active p-2"  aria-current="page" href="{{ path("app_register") }}">S'inscrire</a>
+
                 {% if not app.user %}
+                    <a class="col text-light nav-link active p-2"  aria-current="page" href="{{ path("app_register") }}">S'inscrire</a>
                     <a class="col text-light nav-link active p-2"  aria-current="page"
                        href="{{ path("app_login") }}">Connexion</a>
                 {% else %}
-                    <a class="col text-light nav-link active p-2"  aria-current="page"
+                    <p  class="col text-light p-2">logged as <br>
+                        <span style="font-style: italic">{{ app.user.pseudo }}</span></p>
+                    <a class="col text-light nav-link active p-2 mt-3"  aria-current="page"
                        href="{{ path("app_logout") }}">Déconnexion</a>
                 {% endif %}
             </div>
