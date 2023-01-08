@@ -8,16 +8,24 @@
     <div class="container-fluid">
         <a class="btn btn-dark text-light navbar-brand" href="{{ path("app_etablissements") }}">FC-Tourisme</a>
         <a class=" text-light nav-link active p-2"  aria-current="page" href="{{ path("app_etablissements") }}">Liste des Établissements</a>
+        {% if app.user %}
+
+            <a class=" text-light nav-link active p-2" href=" {{path('app_list_fav')  }}">Favoris</a>
+
+        {% endif %}
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 
 
 
             <div class="row d-flex" style="margin-right: 3%">
-                <a class="col text-light nav-link active p-2"  aria-current="page" href="{{ path("app_register") }}">S'inscrire</a>
+
+
                 {% if not app.user %}
+                    <a class="col text-light nav-link active p-2"  aria-current="page" href="{{ path("app_register") }}">S'inscrire</a>
                     <a class="col text-light nav-link active p-2"  aria-current="page"
                        href="{{ path("app_login") }}">Connexion</a>
                 {% else %}
+                    <p class="col-6 text-light">Logged as <span style="font-style: italic">{{ app.user.pseudo }}</span></p>
                     <a class="col text-light nav-link active p-2"  aria-current="page"
                        href="{{ path("app_logout") }}">Déconnexion</a>
                 {% endif %}

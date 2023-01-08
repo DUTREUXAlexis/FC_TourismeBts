@@ -12,24 +12,38 @@
                 <h2 class="text-center mb-5"><strong>{{ Etablissement.nom | upper}}</strong></h2>
                 <div class="row text-center">
                     {% for categorie in Etablissement.categorie %}
-                        <p class="col p-2" style="font-style: italic">Categorie : {{ categorie.nom }}</p>
+                        {% if categorie.nom is same as("Restaurant") %}
+                        <p class="col p-2" style="font-style: italic"><i class="bi bi-cup-hot-fill"></i> {{ categorie.nom }} </p>
+                        {% elseif categorie.nom is same as("Artisanat")%}
+                        <p class="col p-2" style="font-style: italic"><i class="bi bi-hand-index-fill"></i> {{ categorie.nom }} </p>
+                        {% elseif categorie.nom is same as("Hotel")%}
+                        <p class="col p-2" style="font-style: italic"><i class="bi bi-house-fill"></i> {{ categorie.nom }} </p>
+                        {% elseif categorie.nom is same as("Musée")%}
+                        <p class="col p-2" style="font-style: italic"><i class="bi bi-brush-fill"></i> {{ categorie.nom }} </p>
+                        {% else %}
+                            <p class="col p-2" style="font-style: italic"><i class="bi bi-houses-fill"></i> {{ categorie.nom }} </p>
+                        {% endif %}
                     {% endfor %}
-                    <p class="col">Adresse : {{ Etablissement.ville.nom }}, {{ Etablissement.ville.codePostal }}</p>
+                    <p class="col"><i class="bi bi-geo-alt-fill"></i> Adresse : {{ Etablissement.ville.nom }}, {{ Etablissement.ville.codePostal }}</p>
+                    <p style="padding: 0 20% 0 20%; margin-bottom: 50px">{{ Etablissement.description }}.</p>
 
                 </div>
-                <div>
-                    <p>{{ Etablissement.description }}.</p>
-                    <a class="btn btn-dark" style="margin-left : 42%"
-                       href="{{ path("app_etablissements") }}">Revenir aux établissements</a>
+                <div class="d-flex justify-content-center">
+
+                    {% if app.user %}
+                        {% if app.user in Etablissement.idUtilisateur %}
+                            <a href="{{ path('app_favoris', {'slug': Etablissement.slug}) }}" class="btn btn-light col-2 text-dark border border-dark" style="margin-right: 10px;">Retirer des favoris <i class="bi bi-heart-fill"></i></a>
+                        {% else %}
+                            <a href="{{ path('app_favoris', {'slug': Etablissement.slug}) }}" class="btn btn-light col-2 text-dark border border-dark" style="margin-right: 10px;">Placer en favori <i class="bi bi-heart"></i></a>
+                        {% endif %}
+                    {% endif %}
+
+
+                    <a class="btn btn-dark"
+                       href="{{ path("app_etablissements") }}">Revenir aux établissements <i class="bi bi-list"></i></a>
+
+
                 </div>
-
-
-
-
-
-
-
-
 
             </div>
         </div>

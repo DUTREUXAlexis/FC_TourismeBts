@@ -53,9 +53,13 @@ class Etablissement
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'etablissements')]
     private Collection $categorie;
 
+    #[ORM\ManyToMany(targetEntity: Utilisateur::class, inversedBy: 'favoris')]
+    private Collection $id_utilisateur;
+
     public function __construct()
     {
         $this->categorie = new ArrayCollection();
+        $this->id_utilisateur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -215,6 +219,30 @@ class Etablissement
     public function removeCategorie(categorie $categorie): self
     {
         $this->categorie->removeElement($categorie);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Utilisateur>
+     */
+    public function getIdUtilisateur(): Collection
+    {
+        return $this->id_utilisateur;
+    }
+
+    public function addIdUtilisateur(Utilisateur $idUtilisateur): self
+    {
+        if (!$this->id_utilisateur->contains($idUtilisateur)) {
+            $this->id_utilisateur->add($idUtilisateur);
+        }
+
+        return $this;
+    }
+
+    public function removeIdUtilisateur(Utilisateur $idUtilisateur): self
+    {
+        $this->id_utilisateur->removeElement($idUtilisateur);
 
         return $this;
     }

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\EtablissementRepository;
+use App\Repository\UtilisateurRepository;
 use ContainerREZiCid\getKnpPaginatorService;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +32,7 @@ class EtablissementController extends AbstractController
         $etablissements = $paginator->paginate(
             $this->etablissementRepository->findBy(["actif"=>'true'],['nom'=>'ASC']),
             $request->query->getInt("page",3),
-            4,
+            3,
 
         );
 
@@ -55,4 +57,37 @@ class EtablissementController extends AbstractController
 
 
     }
+
+    #[Route('/etablissement/{slug}/favoris', name: 'app_favoris')]
+    public function favorisation($slug, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $manager): Response
+    {
+        $etablissement = $this->etablissementRepository->findOneBy(["slug"=>$slug]);
+        $utilisateur = $utilisateurRepository->find($this->getUser());
+
+        if(in_array($etablissement,$utilisateur->getFavoris()->toArray())){
+            $etablissement->removeIdUtilisateur($utilisateur);
+        }
+        else
+        {
+            $etablissement->addIdUtilisateur($utilisateur);
+        }
+
+        $manager->persist($etablissement);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_etablissements');
+    }
+
+    #[Route('/etablissements/favoris', name: 'app_list_fav')]
+    public function listFavorite( UtilisateurRepository $utilisateurRepository): Response
+    {
+
+        $utilisateur = $utilisateurRepository->find($this->getUser());
+        $etablissement = $utilisateur->getFavoris();
+
+
+        return $this->render('etablissement/favoris.html.twig',[
+            'Etablissements'=>$etablissement
+        ]);
+        }
 }

@@ -57,4 +57,5 @@ class Etablissement {
 
 Etablissement "1..* " -- "1..* " Catégorie
 Etablissement "1..1 "-- "0..*"Ville
+Etablissement "0..*"  -- "0..*"Utilisateur
 @enduml
